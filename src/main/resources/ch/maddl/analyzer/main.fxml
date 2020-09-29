@@ -10,34 +10,34 @@
         <menus>
           <Menu mnemonicParsing="false" text="Öffnen">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Neue Input-Dateien..." />
+                  <MenuItem mnemonicParsing="false" onAction="#onOpenMenuItemClicked" text="Neue Input-Dateien..." />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Exportieren">
             <items>
-              <MenuItem mnemonicParsing="false" text="Als CSV..." />
-                  <MenuItem mnemonicParsing="false" text="Als JSON..." />
-                  <MenuItem mnemonicParsing="false" text="Auf Server veröffentlichen..." />
+                <MenuItem mnemonicParsing="false" onAction="#onExportAsCSVMenuItemClicked" text="Als CSV..." />
+                <MenuItem mnemonicParsing="false" text="Als JSON..." />
+                <MenuItem mnemonicParsing="false" text="Auf Server veröffentlichen..." />
             </items>
           </Menu>
         </menus>
       </MenuBar>
-      <LineChart layoutY="53.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </LineChart>
       <LineChart layoutX="500.0" layoutY="53.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis label="Zeit" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis label="kWh" side="LEFT" />
         </yAxis>
       </LineChart>
+      <BarChart layoutY="53.0">
+        <xAxis>
+          <CategoryAxis label="Tarif" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="kWh" side="LEFT" />
+        </yAxis>
+      </BarChart>
       <Label layoutX="14.0" layoutY="35.0" text="Verbrauchsdiagramm" />
       <Label layoutX="515.0" layoutY="35.0" text="Zählerstanddiagramm" />
    </children>
