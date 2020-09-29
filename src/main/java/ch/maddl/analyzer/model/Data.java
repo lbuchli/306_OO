@@ -1,21 +1,23 @@
 package ch.maddl.analyzer.model;
 
+import javafx.util.Pair;
+
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class Data {
 
-    private Map<LocalDateTime, Double> usageOverTime;
-    private Map<LocalDateTime, Double> supplyOverTime;
+    private List<Pair<LocalDateTime, Double>> usageOverTime;
+    private List<Pair<LocalDateTime, Double>> supplyOverTime;
     private double usageLowTariff;
     private double usageHighTariff;
     private double supplyLowTariff;
     private double supplyHighTariff;
 
     public Data(
-            Map<LocalDateTime, Double> usageOverTime,
-            Map<LocalDateTime, Double> supplyOverTime,
+            List<Pair<LocalDateTime, Double>> usageOverTime,
+            List<Pair<LocalDateTime, Double>> supplyOverTime,
             double usageLowTariff,
             double usageHighTariff,
             double supplyLowTariff,
@@ -28,11 +30,11 @@ public class Data {
         this.supplyHighTariff = supplyHighTariff;
     }
 
-    public Map<LocalDateTime, Double> getUsageOverTime() {
+    public List<Pair<LocalDateTime, Double>> getUsageOverTime() {
         return usageOverTime;
     }
 
-    public Map<LocalDateTime, Double> getSupplyOverTime() {
+    public List<Pair<LocalDateTime, Double>> getSupplyOverTime() {
         return supplyOverTime;
     }
 

@@ -122,7 +122,7 @@ public class InputChooseController {
         );
     }
 
-    private Map<LocalDateTime, Double> getValuesOverTime(SDAT sdat) {
+    private List<Pair<LocalDateTime, Double>> getValuesOverTime(SDAT sdat) {
         LocalDateTime startTime = LocalDateTime.ofInstant(sdat.getMeteringData().getInterval().getStartDateTime().toInstant(), ZoneId.systemDefault());
         long resolution = sdat.getMeteringData().getResolution().getResolution();
         Duration interval;
@@ -134,7 +134,7 @@ public class InputChooseController {
 
         return sdat.getMeteringData().getObservations().stream()
                 .map(obs -> new Pair<>(startTime.plus(interval.multipliedBy(obs.getPosition().getSequence())), obs.getVolume()))
-                .collect(Collectors.toMap(pair -> pair.getKey(), pair -> pair.getValue()));
+                .sorted((a, b) -> a.getKey().isAfter(b.getKey()) ? 1 : -1).collect(Collectors.toList());
     }
 
     private double getValueOfObis(List<ValueRow> values, String obis) {
