@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class InstanceDocument {
 
+
     @XmlElement(namespace = "http://www.strom.ch", name = "DocumentID", required = true)
     private String documentID;
 

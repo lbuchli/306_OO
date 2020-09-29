@@ -84,12 +84,12 @@ public class InputChooseController {
     }
 
     private Data buildData(SDAT sdat, ESL esl) {
-        System.out.println(sdat.getInstanceDocument().getDocumentID());
+        System.out.println(sdat.getHeaderInformation().getInstanceDocument().getDocumentID());
         System.out.println(sdat.getMeteringData().getInterval().getStartDateTime());
         System.out.println(sdat.getMeteringData().getResolution().getResolution());
-        sdat.getMeteringData().getObservations().forEach(obs -> System.out.printf("Obs %d: %f\n", obs.getPosition(), obs.getVolume()));
+        sdat.getMeteringData().getObservations().forEach(obs -> System.out.printf("Obs %d: %f\n", obs.getPosition().getSequence(), obs.getVolume()));
         return new Data(
-          sdat.getInstanceDocument().getDocumentID(),
+          sdat.getHeaderInformation().getInstanceDocument().getDocumentID(),
           null, // TODO
           0,0 // TODO
         );
