@@ -1,28 +1,39 @@
 package ch.maddl.analyzer.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 
 public class Data {
 
-    private String id;
-    private Map<Date, Double> usageOverTime;
+    private Map<LocalDateTime, Double> usageOverTime;
+    private Map<LocalDateTime, Double> supplyOverTime;
     private double usageLowTariff;
     private double usageHighTariff;
+    private double supplyLowTariff;
+    private double supplyHighTariff;
 
-    public Data(String id, Map<Date, Double> usageOverTime, double usageLowTariff, double usageHighTariff) {
-        this.id = id;
+    public Data(
+            Map<LocalDateTime, Double> usageOverTime,
+            Map<LocalDateTime, Double> supplyOverTime,
+            double usageLowTariff,
+            double usageHighTariff,
+            double supplyLowTariff,
+            double supplyHighTariff) {
         this.usageOverTime = usageOverTime;
+        this.supplyOverTime = supplyOverTime;
         this.usageLowTariff = usageLowTariff;
         this.usageHighTariff = usageHighTariff;
+        this.supplyLowTariff = supplyLowTariff;
+        this.supplyHighTariff = supplyHighTariff;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public Map<Date, Double> getUsageOverTime() {
+    public Map<LocalDateTime, Double> getUsageOverTime() {
         return usageOverTime;
+    }
+
+    public Map<LocalDateTime, Double> getSupplyOverTime() {
+        return supplyOverTime;
     }
 
     public double getUsageLowTariff() {
@@ -31,5 +42,13 @@ public class Data {
 
     public double getUsageHighTariff() {
         return usageHighTariff;
+    }
+
+    public double getSupplyLowTariff() {
+        return supplyLowTariff;
+    }
+
+    public double getSupplyHighTariff() {
+        return supplyHighTariff;
     }
 }

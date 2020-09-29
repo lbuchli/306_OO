@@ -10,7 +10,7 @@ public class SDAT {
     private MeteringData meteringData;
 
     @XmlElement(namespace = "http://www.strom.ch", name = "ValidatedMeteredData_HeaderInformation", required = true)
-    HeaderInformation headerInformation;
+    private HeaderInformation headerInformation;
 
     public HeaderInformation getHeaderInformation() {
         return headerInformation;

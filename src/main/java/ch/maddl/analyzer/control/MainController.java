@@ -9,10 +9,6 @@ import java.io.IOException;
 
 public class MainController {
 
-    public MainController() {
-        System.out.println(Analyzer.getInstance().getData().getId());
-    }
-
     @FXML
     private void onOpenMenuItemClicked() throws IOException {
         App.setRoot("inputchooser");

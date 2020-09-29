@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "ESLBillingData")
 public class ESL {
 
-    @XmlElement(name = "TimePeriod", required = true)
-    private TimePeriod timePeriod;
+    @XmlElement(name = "Meter")
+    private Meter meter;
 
-    public TimePeriod getTimePeriod() {
-        return timePeriod;
+    public Meter getMeter() {
+        return meter;
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TimePeriod {
 
-    @XmlAttribute(name = "end", required = true)
+    @XmlAttribute(name = "end")
     private Date end;
 
     @XmlElement(name = "ValueRow", required = true)

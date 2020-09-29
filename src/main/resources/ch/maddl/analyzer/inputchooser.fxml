@@ -6,17 +6,20 @@
 
 <AnchorPane prefHeight="289.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.maddl.analyzer.control.InputChooseController">
    <children>
-      <TextField layoutX="14.0" layoutY="104.0" prefHeight="28.0" prefWidth="311.0" fx:id="sdatTextField" text="/home/lukas/downloads/XML-Files/SDAT-Files/20190313_093127_12X-0000001216-O_E66_12X-LIPPUNEREM-T_ESLEVU121963_-279617263.xml" />
-      <TextField layoutX="14.0" layoutY="186.0" prefHeight="28.0" prefWidth="311.0" fx:id="eslTextField" text="/home/lukas/downloads/XML-Files/ESL-Files/EdmRegisterWertExport_20190131_eslevu_20190322160349.xml" />
+      <TextField fx:id="sdatUsageTextField" layoutX="14.0" layoutY="85.0" prefHeight="28.0" prefWidth="311.0" text="/home/lukas/downloads/XML-Files/SDAT-Files/20190313_093127_12X-0000001216-O_E66_12X-LIPPUNEREM-T_ESLEVU121963_-279617263.xml" />
+      <TextField fx:id="sdatSupplyTextField" layoutX="14.0" layoutY="145.0" prefHeight="28.0" prefWidth="311.0" text="/home/lukas/downloads/XML-Files/SDAT-Files/20190313_093127_12X-0000001216-O_E66_12X-LIPPUNEREM-T_ESLEVU121964_42591648.xml" />
+      <TextField fx:id="eslTextField" layoutX="14.0" layoutY="201.0" prefHeight="28.0" prefWidth="311.0" text="/home/lukas/downloads/XML-Files/ESL-Files/EdmRegisterWertExport_20190131_eslevu_20190322160349.xml" />
       <Label layoutX="14.0" layoutY="14.0" text="Input-Datei wählen">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="86.0" text="SDAT-Datei" />
-      <Label layoutX="14.0" layoutY="168.0" text="ESL-Datei" />
-      <Button layoutX="331.0" layoutY="104.0" mnemonicParsing="false" text="Datei auswählen..." onAction="#onSDATChooseButtonClick" />
-      <Button layoutX="331.0" layoutY="186.0" mnemonicParsing="false" text="Datei auswählen..." onAction="#onESLChooseButtonClick" />
-      <Button layoutX="402.0" layoutY="255.0" mnemonicParsing="false" text="Weiter" onAction="#onNextButtonClick" />
+      <Label layoutX="14.0" layoutY="67.0" text="SDAT-Usage-Datei (742)" />
+      <Label layoutX="14.0" layoutY="127.0" text="SDAT-Supply-Datei (735)" />
+      <Label layoutX="14.0" layoutY="183.0" text="ESL-Datei" />
+      <Button layoutX="331.0" layoutY="85.0" mnemonicParsing="false" onAction="#onSDATUsageChooseButtonClick" text="Datei auswählen..." />
+      <Button layoutX="331.0" layoutY="145.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" onAction="#onSDATSupplyChooseButtonClick" text="Datei auswählen..." />
+      <Button layoutX="331.0" layoutY="201.0" mnemonicParsing="false" onAction="#onESLChooseButtonClick" text="Datei auswählen..." />
+      <Button layoutX="402.0" layoutY="255.0" mnemonicParsing="false" onAction="#onNextButtonClick" text="Weiter" />
    </children>
 </AnchorPane>
