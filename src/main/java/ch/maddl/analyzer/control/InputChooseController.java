@@ -114,7 +114,6 @@ public class InputChooseController {
             try {
                 return (SDAT) context.createUnmarshaller().unmarshal(new File(path));
             } catch (UnmarshalException e) {
-                e.printStackTrace();
                 continue;
             }
         }

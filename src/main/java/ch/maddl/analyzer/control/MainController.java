@@ -97,10 +97,10 @@ public class MainController {
 
     private XYChart.Series<String, Double> seriesFrom(List<Pair<LocalDateTime, Double>> data) {
         XYChart.Series<String, Double> series = new XYChart.Series<>();
-        int i = 0;
-        for (Pair<LocalDateTime, Double> v : data) {
+        int stepSize = data.size()/128;
+        for (int i = 0; i*stepSize < data.size(); i += 1) {
+            Pair<LocalDateTime, Double> v = data.get(i*stepSize);
             series.getData().add(i, new XYChart.Data<>(v.getKey().format(DateTimeFormatter.ofPattern("HH:mm dd.MM.yy")), v.getValue()));
-            i++;
         }
         return series;
     }
