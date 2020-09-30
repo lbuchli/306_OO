@@ -22,7 +22,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <LineChart fx:id="timeChart" layoutX="500.0" layoutY="30.0" prefHeight="423.0" prefWidth="500.0" title="Zählerstanddiagramm">
+      <LineChart fx:id="timeChart" axisSortingPolicy="NONE" createSymbols="false" layoutX="500.0" layoutY="30.0" prefHeight="423.0" prefWidth="500.0" title="Zählerstanddiagramm">
         <xAxis>
           <CategoryAxis label="Zeit" side="BOTTOM" />
         </xAxis>

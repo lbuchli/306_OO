@@ -13,6 +13,7 @@ import javafx.util.Pair;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -63,31 +64,22 @@ public class MainController {
     }
 
     private void fillTimeChart() {
-        CategoryAxis xAxis = (CategoryAxis) timeChart.getXAxis();
-        xAxis.setCategories(buildXAxis());
-
-        XYChart.Series<String, Double> usageSeries = new XYChart.Series<>();
-        Analyzer.getInstance().getData().getUsageOverTime().stream().map(
-                entry -> usageSeries.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()))
-        );
+        XYChart.Series<String, Double> usageSeries = seriesFrom(Analyzer.getInstance().getData().getUsageOverTime());
         usageSeries.setName("Verbrauch");
 
-        XYChart.Series<String, Double> supplySeries = new XYChart.Series<>();
-        Analyzer.getInstance().getData().getSupplyOverTime().stream().map(
-                entry -> supplySeries.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()))
-        );
+        XYChart.Series<String, Double> supplySeries = seriesFrom(Analyzer.getInstance().getData().getSupplyOverTime());
         supplySeries.setName("Einspeisung");
-
-        Analyzer.getInstance().getData().getUsageOverTime().forEach(pair -> System.out.printf("%s %f\n", pair.getKey().toString(), pair.getValue())); // TODO remove
 
         timeChart.getData().addAll(usageSeries, supplySeries);
     }
 
-    private ObservableList<String> buildXAxis() {
-        List<String> result = new ArrayList<>();
-        for (Pair<LocalDateTime, Double> value : Analyzer.getInstance().getData().getUsageOverTime()) {
-            result.add(value.getKey().toString());
+    private XYChart.Series<String, Double> seriesFrom(List<Pair<LocalDateTime, Double>> data) {
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
+        int i = 0;
+        for (Pair<LocalDateTime, Double> v : data) {
+            series.getData().add(i, new XYChart.Data<>(v.getKey().format(DateTimeFormatter.ofPattern("HH:mm dd.MM.yy")), v.getValue()));
+            i++;
         }
-        return FXCollections.observableList(result);
+        return series;
     }
 }
