@@ -3,6 +3,7 @@ module ch.maddl.analyzer {
     requires javafx.fxml;
     requires java.xml;
     requires java.xml.bind;
+    requires java.sql;
 
     opens ch.maddl.analyzer.control to javafx.fxml;
     opens ch.maddl.analyzer.control.util.data.sdat to java.xml.bind;

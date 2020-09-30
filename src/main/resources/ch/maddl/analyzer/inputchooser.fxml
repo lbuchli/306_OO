@@ -17,7 +17,7 @@
       <Label layoutX="14.0" layoutY="127.0" text="SDAT-Supply-Datei (735)" />
       <Label layoutX="14.0" layoutY="183.0" text="ESL-Datei" />
       <Button layoutX="331.0" layoutY="85.0" mnemonicParsing="false" onAction="#onSDATUsageChooseButtonClick" text="Datei auswählen..." />
-      <Button layoutX="331.0" layoutY="145.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="130.0" onAction="#onSDATSupplyChooseButtonClick" text="Datei auswählen..." />
+      <Button layoutX="331.0" layoutY="145.0" mnemonicParsing="false" onAction="#onSDATSupplyChooseButtonClick" text="Datei auswählen..." />
       <Button layoutX="331.0" layoutY="201.0" mnemonicParsing="false" onAction="#onESLChooseButtonClick" text="Datei auswählen..." />
       <Button layoutX="402.0" layoutY="255.0" mnemonicParsing="false" onAction="#onNextButtonClick" text="Weiter" />
    </children>

@@ -6,11 +6,18 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.stage.FileChooser;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalField;
 import java.util.List;
 
 public class MainController {
@@ -35,7 +42,21 @@ public class MainController {
     }
 
     @FXML
-    private void onExportAsCSVMenuItemClicked() {
+    private void onExportUsageAsCSVMenuItemClicked() {
+        saveString(
+                asCSV(Analyzer.getInstance().getData().getUsageOverTime()),
+                "CSV", "*.csv",
+                "Verbrauch als CSV speichern"
+        );
+    }
+
+    @FXML
+    private void onExportSupplyAsCSVMenuItemClicked() {
+        saveString(
+                asCSV(Analyzer.getInstance().getData().getSupplyOverTime()),
+                "CSV", "*.csv",
+                "Einspeisung als CSV speichern"
+        );
     }
 
     @FXML
@@ -82,5 +103,31 @@ public class MainController {
             i++;
         }
         return series;
+    }
+
+    private String asCSV(List<Pair<LocalDateTime, Double>> data) {
+        StringBuilder sb = new StringBuilder("timestamp, value\n");
+        data.forEach(pair -> sb.append(String.format("%s, %.1f\n",
+                pair.getKey().toInstant(ZoneOffset.UTC).toEpochMilli() / 1000L,
+                pair.getValue()
+        )));
+
+        return sb.toString();
+    }
+
+    private void saveString(String data, String extensionName, String extensionPattern, String title) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(extensionName, extensionPattern));
+        File file = fileChooser.showSaveDialog(App.getStage());
+        if (file != null) {
+            try {
+                PrintWriter writer = new PrintWriter(file);
+                writer.print(data);
+                writer.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
