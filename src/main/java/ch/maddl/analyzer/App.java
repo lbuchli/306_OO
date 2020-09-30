@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,11 +23,14 @@ public class App extends Application {
         this.stage = stage;
         scene = new Scene(loadFXML("inputchooser"));
         stage.setScene(scene);
+        stage.setTitle("Analizer");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon-white.png")));
         stage.show();
     }
 
-    public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    public static void setScene(String fxml) throws IOException {
+        scene = new Scene(loadFXML(fxml));
+        stage.setScene(scene);
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

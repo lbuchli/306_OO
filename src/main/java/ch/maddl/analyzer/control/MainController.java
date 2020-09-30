@@ -36,7 +36,7 @@ public class MainController {
 
     @FXML
     private void onOpenMenuItemClicked() throws IOException {
-        App.setRoot("inputchooser");
+        App.setScene("inputchooser");
         App.getStage().setWidth(476.0);
         App.getStage().setHeight(325.0);
     }

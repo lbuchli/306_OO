@@ -75,9 +75,7 @@ public class InputChooseController {
             } catch (JAXBException e) {
                 e.printStackTrace();
             }
-            App.setRoot("main");
-            App.getStage().setWidth(1020);
-            App.getStage().setHeight(480);
+            App.setScene("main");
         }
     }
 
