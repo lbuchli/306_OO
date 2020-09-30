@@ -2,11 +2,8 @@ package ch.maddl.analyzer.control;
 
 import ch.maddl.analyzer.App;
 import ch.maddl.analyzer.model.Analyzer;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.util.Pair;
@@ -14,11 +11,7 @@ import javafx.util.Pair;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
 public class MainController {
 
@@ -43,6 +36,14 @@ public class MainController {
 
     @FXML
     private void onExportAsCSVMenuItemClicked() {
+    }
+
+    @FXML
+    private void onExportAsJSONMenuItemClicked() {
+    }
+
+    @FXML
+    private void onPublishToServerMenuItemClicked() {
     }
 
     private void fillBillingChart() {

@@ -1,5 +1,6 @@
 package ch.maddl.analyzer.control;
 
+import ch.maddl.analyzer.App;
 import ch.maddl.analyzer.control.util.NoFileException;
 import ch.maddl.analyzer.control.util.data.esl.ESL;
 import ch.maddl.analyzer.control.util.data.esl.ValueRow;
@@ -9,7 +10,6 @@ import ch.maddl.analyzer.model.Data;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import ch.maddl.analyzer.App;
 import javafx.util.Pair;
 
 import javax.xml.bind.JAXBContext;
@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InputChooseController {
