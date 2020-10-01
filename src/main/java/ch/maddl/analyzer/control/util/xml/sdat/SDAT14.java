@@ -1,4 +1,4 @@
-package ch.maddl.analyzer.control.util.data.sdat;
+package ch.maddl.analyzer.control.util.xml.sdat;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

@@ -1,4 +1,4 @@
-package ch.maddl.analyzer.control.util.data.esl;
+package ch.maddl.analyzer.control.util.xml.esl;
 
 import javax.xml.bind.annotation.XmlElement;
 

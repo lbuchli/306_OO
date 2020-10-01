@@ -1,7 +1,10 @@
 package ch.maddl.analyzer.control;
 
 import ch.maddl.analyzer.App;
+import ch.maddl.analyzer.control.util.json.DataValue;
+import ch.maddl.analyzer.control.util.json.SensorData;
 import ch.maddl.analyzer.model.Analyzer;
+import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
@@ -9,16 +12,15 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.FileChooser;
 import javafx.util.Pair;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Timestamp;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalField;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.xml.bind.JAXBException;
 
 public class MainController {
 
@@ -60,7 +62,12 @@ public class MainController {
     }
 
     @FXML
-    private void onExportAsJSONMenuItemClicked() {
+    private void onExportAsJSONMenuItemClicked() throws JAXBException, IOException {
+        saveString(
+                asJSON(Analyzer.getInstance().getData().getUsageOverTime(), Analyzer.getInstance().getData().getSupplyOverTime()),
+                "JSON", "*.json",
+                "Daten als JSON speichern"
+        );
     }
 
     @FXML
@@ -108,11 +115,37 @@ public class MainController {
     private String asCSV(List<Pair<LocalDateTime, Double>> data) {
         StringBuilder sb = new StringBuilder("timestamp, value\n");
         data.forEach(pair -> sb.append(String.format("%s, %.1f\n",
-                pair.getKey().toInstant(ZoneOffset.UTC).toEpochMilli() / 1000L,
+                localDateTimeToTimestamp(pair.getKey()),
                 pair.getValue()
         )));
 
         return sb.toString();
+    }
+
+    private String asJSON(List<Pair<LocalDateTime, Double>> usage, List<Pair<LocalDateTime, Double>> supply) {
+        SensorData usageData = new SensorData();
+        usageData.setSensorID("742");
+        usageData.setData(toDataValues(usage));
+
+        SensorData supplyData = new SensorData();
+        supplyData.setSensorID("735");
+        supplyData.setData(toDataValues(supply));
+
+        return new Gson().toJson(Arrays.asList(usageData, supplyData));
+    }
+
+    private List<DataValue> toDataValues(List<Pair<LocalDateTime, Double>> data) {
+        return data.stream().map(pair -> {
+            DataValue val = new DataValue();
+            val.setTs(String.valueOf(localDateTimeToTimestamp(pair.getKey())));
+            val.setValue(pair.getValue());
+            return val;
+        }).collect(Collectors.toList());
+    }
+
+
+    private long localDateTimeToTimestamp(LocalDateTime time) {
+        return time.toInstant(ZoneOffset.UTC).toEpochMilli() / 1000L;
     }
 
     private void saveString(String data, String extensionName, String extensionPattern, String title) {

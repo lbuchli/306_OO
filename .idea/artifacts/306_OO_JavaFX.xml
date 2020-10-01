@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="306_OO JavaFX">
+    <output-path>$PROJECT_DIR$/out/artifacts/306_OO_JavaFX</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="ch.maddl.analyzer.App" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="Analizer" />
+        <option name="vendor" value="Informaniacs" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="306_OO.jar">
+        <element id="module-output" name="306_OO" />
+      </element>
+    </root>
+  </artifact>
+</component>

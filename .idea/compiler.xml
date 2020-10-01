@@ -9,5 +9,8 @@
         <module name="306_OO" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="analizer" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
