@@ -6,10 +6,13 @@ import ch.maddl.analyzer.control.util.json.SensorData;
 import ch.maddl.analyzer.model.Analyzer;
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -34,6 +37,10 @@ public class MainController {
     private void initialize() {
         fillBillingChart();
         fillTimeChart();
+        Analyzer.getInstance().addDataChangedListener(() -> {
+            timeChart.getData().clear();
+            fillTimeChart();
+        });
     }
 
     @FXML
@@ -74,11 +81,21 @@ public class MainController {
     private void onPublishToServerMenuItemClicked() {
     }
 
+    @FXML
+    private void onFilterPerDayMenuItemClicked() throws IOException {
+        Stage filterStage = new Stage();
+        filterStage.initModality(Modality.WINDOW_MODAL);
+        filterStage.initOwner(App.getStage().getScene().getWindow());
+        filterStage.setTitle("Filteroptionen");
+        filterStage.setScene(new Scene(App.loadFXML("filter")));
+        filterStage.show();
+    }
+
     private void fillBillingChart() {
         XYChart.Series<String, Double> usageSeries = new XYChart.Series<>();
         usageSeries.getData().addAll(
-                new XYChart.Data<String, Double>("Hochtarif", Analyzer.getInstance().getData().getUsageHighTariff()),
-                new XYChart.Data<String, Double>("Niedertarif", Analyzer.getInstance().getData().getUsageLowTariff())
+                new XYChart.Data<>("Hochtarif", Analyzer.getInstance().getData().getUsageHighTariff()),
+                new XYChart.Data<>("Niedertarif", Analyzer.getInstance().getData().getUsageLowTariff())
         );
         usageSeries.setName("Verbrauch");
 
@@ -92,7 +109,7 @@ public class MainController {
         billingChart.getData().addAll(usageSeries, supplySeries);
     }
 
-    private void fillTimeChart() {
+    protected void fillTimeChart() {
         XYChart.Series<String, Double> usageSeries = seriesFrom(Analyzer.getInstance().getData().getUsageOverTime());
         usageSeries.setName("Verbrauch");
 

@@ -63,21 +63,20 @@ public class InputChooseController {
         boolean sdatExist = Arrays.stream(sdatTextField.getText().split(";")).allMatch(s -> Files.exists(Path.of(s)));
         boolean eslExists = Files.exists(Path.of(eslTextField.getText()));
         if (sdatExist && eslExists) {
+            List<SDAT> sdats = new ArrayList<>();
+            ESL esl;
             try {
-                List<SDAT> sdats = new ArrayList<>();
                 for (String path : sdatTextField.getText().split(";")) {
                     sdats.add(parseSDAT(path));
                 }
-
-                Data data = buildData(
-                        sdats,
-                        parseESL(eslTextField.getText())
-                );
-
-                Analyzer.getInstance().setData(data);
+                esl = parseESL(eslTextField.getText());
             } catch (JAXBException e) {
-                e.printStackTrace();
+                return;
             }
+
+            Data data = buildData(sdats, esl);
+            Analyzer.getInstance().setData(data);
+            Analyzer.getInstance().setUnfiltered(data);
             App.setScene("main");
         }
     }
@@ -102,7 +101,6 @@ public class InputChooseController {
             }
             return f.getAbsolutePath();
         }
-
     }
 
     private SDAT parseSDAT(String path) throws JAXBException {
@@ -182,7 +180,7 @@ public class InputChooseController {
     private List<Pair<LocalDateTime, Double>> makeSorted(Map<LocalDateTime, Double> data) {
         return data.entrySet().stream()
                 .map(e -> new Pair<>(e.getKey(), e.getValue()))
-                .sorted((a, b) -> b.getKey().isAfter(a.getKey()) ? 1 : -1)
+                .sorted((a, b) -> b.getKey().isAfter(a.getKey()) ? -1 : 1)
                 .collect(Collectors.toList());
     }
 }

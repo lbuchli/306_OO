@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="126.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.maddl.analyzer.control.FilterController">
+   <children>
+      <DatePicker fx:id="datePickerFrom" layoutX="56.0" layoutY="14.0" />
+      <DatePicker fx:id="datePickerTo" layoutX="56.0" layoutY="49.0" />
+      <Label layoutX="13.0" layoutY="19.0" text="Von" />
+      <Label layoutX="15.0" layoutY="54.0" text="Bis" />
+      <Button layoutX="101.0" layoutY="89.0" mnemonicParsing="false" onAction="#onClearFilterClicked" text="Filter löschen" />
+      <Button layoutX="209.0" layoutY="89.0" mnemonicParsing="false" onAction="#onOkClicked" text="Ok" />
+   </children>
+</AnchorPane>

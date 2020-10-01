@@ -1,6 +1,5 @@
 package ch.maddl.analyzer.control.util.json;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
 public class SensorData {

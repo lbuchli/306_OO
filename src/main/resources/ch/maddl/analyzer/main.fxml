@@ -25,6 +25,11 @@
                 <MenuItem mnemonicParsing="false" onAction="#onPublishToServerMenuItemClicked" text="Auf Server veröffentlichen" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Filtern">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onFilterPerDayMenuItemClicked" text="Nach Tag" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
       <LineChart fx:id="timeChart" axisSortingPolicy="NONE" createSymbols="false" layoutX="500.0" layoutY="30.0" prefHeight="423.0" prefWidth="500.0" title="Sensormessungen">
