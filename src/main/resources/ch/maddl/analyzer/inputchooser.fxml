@@ -6,8 +6,8 @@
 
 <AnchorPane prefHeight="226.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.maddl.analyzer.control.InputChooseController">
    <children>
-      <TextField fx:id="sdatTextField" layoutX="13.0" layoutY="78.0" prefHeight="28.0" prefWidth="311.0" text="/home/lukas/downloads/XML-Files/SDAT-Files/20190313_093127_12X-0000001216-O_E66_12X-LIPPUNEREM-T_ESLEVU121963_-279617263.xml" />
-      <TextField fx:id="eslTextField" layoutX="13.0" layoutY="139.0" prefHeight="28.0" prefWidth="311.0" text="/home/lukas/downloads/XML-Files/ESL-Files/EdmRegisterWertExport_20190131_eslevu_20190322160349.xml" />
+      <TextField fx:id="sdatTextField" layoutX="13.0" layoutY="78.0" prefHeight="28.0" prefWidth="311.0" text="" />
+      <TextField fx:id="eslTextField" layoutX="13.0" layoutY="139.0" prefHeight="28.0" prefWidth="311.0" text="" />
       <Label layoutX="14.0" layoutY="14.0" text="Input-Dateien wählen">
          <font>
             <Font size="24.0" />
