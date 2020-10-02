@@ -41,7 +41,7 @@ public class ServerconnectionController {
                     .uri(new URI(urlField.getText()))
                     .POST(HttpRequest.BodyPublishers.ofString(data))
                     .build();
-        } catch (URISyntaxException e) {
+        } catch (Exception e) {
             return;
         }
 
@@ -51,10 +51,10 @@ public class ServerconnectionController {
                 Stage stage = (Stage) urlField.getScene().getWindow();
                 stage.close();
                 return;
-            } catch (IOException e) {
-                return;
             } catch (InterruptedException e) {
                 continue;
+            } catch (Exception e) {
+                return;
             }
         }
     }
