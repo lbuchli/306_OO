@@ -2,6 +2,9 @@ package ch.maddl.analyzer.control.util.xml.esl;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
+/**
+ * Representation of the valuerow element in an ESL file
+ */
 public class ValueRow {
 
     @XmlAttribute(name = "obis", required = true)

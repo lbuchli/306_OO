@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * JavaFX App
+ * JavaFX App, main class
  */
 public class App extends Application {
 
@@ -27,20 +27,39 @@ public class App extends Application {
         stage.show();
     }
 
+    /**
+     * Set a scene to be shown
+     * @param fxml the name of the fxml file to be shown (without extension)
+     * @throws IOException if the fxml file couldn't be read
+     */
     public static void setScene(String fxml) throws IOException {
         scene = new Scene(loadFXML(fxml));
         stage.setScene(scene);
     }
 
+    /**
+     * Load an fxml file
+     * @param fxml the file name (without extension)
+     * @return the loaded fxml file
+     * @throws IOException if the fxml file couln't be read
+     */
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
+    /**
+     * The main method
+     * @param args commandline arguments
+     */
     public static void main(String[] args) {
         launch();
     }
 
+    /**
+     * Get the current stage
+     * @return the stage
+     */
     public static Stage getStage() {
         return stage;
     }

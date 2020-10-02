@@ -3,6 +3,9 @@ package ch.maddl.analyzer.control.util.xml.sdat;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
+/**
+ * Representation of the meteringdata element in an SDAT file
+ */
 public class MeteringData {
 
     @XmlElement(namespace = "http://www.strom.ch", name = "Interval", required = true)

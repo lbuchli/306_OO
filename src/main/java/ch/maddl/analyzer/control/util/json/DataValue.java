@@ -1,5 +1,8 @@
 package ch.maddl.analyzer.control.util.json;
 
+/**
+ * A data value to be marshalled into a JSON file
+ */
 public class DataValue {
 
     private String ts;

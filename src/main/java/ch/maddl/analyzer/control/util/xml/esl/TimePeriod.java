@@ -5,6 +5,9 @@ import javax.xml.bind.annotation.XmlElement;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Representation of the timeperiod element in an ESL file
+ */
 public class TimePeriod {
 
     @XmlAttribute(name = "end")

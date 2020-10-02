@@ -25,6 +25,9 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBException;
 
+/**
+ * The controller for the main screen
+ */
 public class MainController {
 
     @FXML
@@ -69,7 +72,7 @@ public class MainController {
     }
 
     @FXML
-    private void onExportAsJSONMenuItemClicked() throws JAXBException, IOException {
+    private void onExportAsJSONMenuItemClicked() {
         saveString(
                 asJSON(Analyzer.getInstance().getData().getUsageOverTime(), Analyzer.getInstance().getData().getSupplyOverTime()),
                 "JSON", "*.json",
@@ -91,6 +94,9 @@ public class MainController {
         filterStage.show();
     }
 
+    /**
+     * Fill the billing chart with the current analyzer data
+     */
     private void fillBillingChart() {
         XYChart.Series<String, Double> usageSeries = new XYChart.Series<>();
         usageSeries.getData().addAll(
@@ -109,6 +115,9 @@ public class MainController {
         billingChart.getData().addAll(usageSeries, supplySeries);
     }
 
+    /**
+     * Fill the time chart with the current analyzer data
+     */
     protected void fillTimeChart() {
         XYChart.Series<String, Double> usageSeries = seriesFrom(Analyzer.getInstance().getData().getUsageOverTime());
         usageSeries.setName("Verbrauch");
@@ -119,6 +128,11 @@ public class MainController {
         timeChart.getData().addAll(usageSeries, supplySeries);
     }
 
+    /**
+     * Create a chart series from a dataset
+     * @param data the dataset
+     * @return the series
+     */
     private XYChart.Series<String, Double> seriesFrom(List<Pair<LocalDateTime, Double>> data) {
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         int stepSize = data.size()/128;
@@ -129,6 +143,11 @@ public class MainController {
         return series;
     }
 
+    /**
+     * Represent the data as CSV
+     * @param data the data to be represented
+     * @return the CSV data as a string
+     */
     private String asCSV(List<Pair<LocalDateTime, Double>> data) {
         StringBuilder sb = new StringBuilder("timestamp, value\n");
         data.forEach(pair -> sb.append(String.format("%s, %.1f\n",
@@ -139,6 +158,12 @@ public class MainController {
         return sb.toString();
     }
 
+    /**
+     * Represent the data as JSON
+     * @param usage the usage data
+     * @param supply the supply data
+     * @return the JSON data as a string
+     */
     private String asJSON(List<Pair<LocalDateTime, Double>> usage, List<Pair<LocalDateTime, Double>> supply) {
         SensorData usageData = new SensorData();
         usageData.setSensorID("742");
@@ -151,6 +176,11 @@ public class MainController {
         return new Gson().toJson(Arrays.asList(usageData, supplyData));
     }
 
+    /**
+     * Convert data to a marshallable bean class format
+     * @param data the data to be converted
+     * @return the converted data
+     */
     private List<DataValue> toDataValues(List<Pair<LocalDateTime, Double>> data) {
         return data.stream().map(pair -> {
             DataValue val = new DataValue();
@@ -161,10 +191,22 @@ public class MainController {
     }
 
 
+    /**
+     * Convert a {@link LocalDateTime} to a unix timestamp
+     * @param time the {@link LocalDateTime} to be converted
+     * @return the unix timestamp
+     */
     private long localDateTimeToTimestamp(LocalDateTime time) {
         return time.toInstant(ZoneOffset.UTC).toEpochMilli() / 1000L;
     }
 
+    /**
+     * Save a string to a file
+     * @param data the data to be
+     * @param extensionName
+     * @param extensionPattern
+     * @param title
+     */
     private void saveString(String data, String extensionName, String extensionPattern, String title) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);

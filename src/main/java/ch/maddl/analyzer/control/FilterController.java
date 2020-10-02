@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The controller for the filter window
+ */
 public class FilterController {
 
     @FXML
@@ -84,6 +87,13 @@ public class FilterController {
         stage.close();
     }
 
+    /**
+     * Filter data using a start and end date
+     * @param data the data to be filtered
+     * @param from the start date
+     * @param to the end date
+     * @return the filtered data
+     */
     private List<Pair<LocalDateTime, Double>> filter(List<Pair<LocalDateTime, Double>> data, LocalDate from, LocalDate to) {
         return List.copyOf(data).stream()
                 .dropWhile(p -> p.getKey().toLocalDate().isBefore(from))

@@ -28,6 +28,9 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The controller for the input choose window
+ */
 public class InputChooseController {
 
     @FXML
@@ -81,6 +84,14 @@ public class InputChooseController {
         }
     }
 
+    /**
+     * Choose one or multiple files
+     * @param title the title of the file chooser window
+     * @param multiple whether multiple files can be chosen
+     * @param extensions choosable file extensions
+     * @return the path(s) to the chosen files
+     * @throws NoFileException if no file was chosen
+     */
     private String chooseFile(String title, boolean multiple, Pair<String, String>... extensions) throws NoFileException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
@@ -103,6 +114,12 @@ public class InputChooseController {
         }
     }
 
+    /**
+     * Parse an SDAT file
+     * @param path the path to the SDAT file
+     * @return the parsed SDAT file
+     * @throws JAXBException if the parsing failed
+     */
     private SDAT parseSDAT(String path) throws JAXBException {
         List<Class<? extends SDAT>> sdats = Arrays.asList(SDAT12.class, SDAT13.class, SDAT14.class);
 
@@ -118,11 +135,23 @@ public class InputChooseController {
         throw new RuntimeException("Couldn't parse SDAT");
     }
 
+    /**
+     * Parse an ESL file
+     * @param path the path to the ESL file
+     * @return the parsed ESL file
+     * @throws JAXBException if the parsing failed
+     */
     private ESL parseESL(String path) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(ESL.class);
         return (ESL) context.createUnmarshaller().unmarshal(new File(path));
     }
 
+    /**
+     * Build data from SDAT and ESL files
+     * @param sdats SDAT data
+     * @param esl ESL data
+     * @return the built data
+     */
     private Data buildData(List<SDAT> sdats, ESL esl) {
         List<ValueRow> values = esl.getMeter().getTimePeriod().getValueRows();
         double usageHighTariff = getValueOfObis(values, "1-1:1.8.1");
@@ -153,6 +182,11 @@ public class InputChooseController {
         );
     }
 
+    /**
+     * Create a map of values over time from an SDAT file
+     * @param sdat the SDAT data
+     * @return the map
+     */
     private Map<LocalDateTime, Double> getValuesOverTime(SDAT sdat) {
         LocalDateTime startTime = LocalDateTime.ofInstant(sdat.getMeteringData().getInterval().getStartDateTime().toInstant(), ZoneId.systemDefault());
         long resolution = sdat.getMeteringData().getResolution().getResolution();
@@ -168,6 +202,12 @@ public class InputChooseController {
                 .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
     }
 
+    /**
+     * Get the value of a specific obis id
+     * @param values the ESL values
+     * @param obis the obis id
+     * @return the value or 0.0 if it wasn't found
+     */
     private double getValueOfObis(List<ValueRow> values, String obis) {
         for (ValueRow val : values) {
             if (val.getObis().equals(obis)) {
@@ -177,6 +217,11 @@ public class InputChooseController {
         return 0.0;
     }
 
+    /**
+     * Create a sorted list from a time
+     * @param data the data to be sorted
+     * @return the sorted data
+     */
     private List<Pair<LocalDateTime, Double>> makeSorted(Map<LocalDateTime, Double> data) {
         return data.entrySet().stream()
                 .map(e -> new Pair<>(e.getKey(), e.getValue()))

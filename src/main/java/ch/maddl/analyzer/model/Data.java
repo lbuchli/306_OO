@@ -5,6 +5,9 @@ import javafx.util.Pair;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * The data gained from the xml files (this is a bean class)
+ */
 public class Data {
 
     private List<Pair<LocalDateTime, Double>> usageOverTime;

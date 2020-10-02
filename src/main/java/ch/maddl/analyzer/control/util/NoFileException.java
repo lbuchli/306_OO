@@ -1,4 +1,6 @@
 package ch.maddl.analyzer.control.util;
 
-public class NoFileException extends Exception {
-}
+/**
+ * An {@link Exception} to be thrown when no file was chosen
+ */
+public class NoFileException extends Exception {}
