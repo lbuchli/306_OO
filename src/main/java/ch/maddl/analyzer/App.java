@@ -22,7 +22,7 @@ public class App extends Application {
         this.stage = stage;
         scene = new Scene(loadFXML("inputchooser"));
         stage.setScene(scene);
-        stage.setTitle("Analizer");
+        stage.setTitle("Analyzer");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("icon-white.png")));
         stage.show();
     }
