@@ -1,6 +1,7 @@
 package ch.maddl.analyzer.control;
 
 import ch.maddl.analyzer.App;
+import ch.maddl.analyzer.control.util.Util;
 import ch.maddl.analyzer.control.util.json.DataValue;
 import ch.maddl.analyzer.control.util.json.SensorData;
 import ch.maddl.analyzer.model.Analyzer;
@@ -55,33 +56,39 @@ public class MainController {
 
     @FXML
     private void onExportUsageAsCSVMenuItemClicked() {
-        saveString(
-                asCSV(Analyzer.getInstance().getData().getUsageOverTime()),
-                "CSV", "*.csv",
+        Util.saveString(
+                Util.asCSV(Analyzer.getInstance().getData().getUsageOverTime()),
+                "742.csv","CSV", "*.csv",
                 "Verbrauch als CSV speichern"
         );
     }
 
     @FXML
     private void onExportSupplyAsCSVMenuItemClicked() {
-        saveString(
-                asCSV(Analyzer.getInstance().getData().getSupplyOverTime()),
-                "CSV", "*.csv",
+        Util.saveString(
+                Util.asCSV(Analyzer.getInstance().getData().getSupplyOverTime()),
+                "735.csv","CSV", "*.csv",
                 "Einspeisung als CSV speichern"
         );
     }
 
     @FXML
     private void onExportAsJSONMenuItemClicked() {
-        saveString(
-                asJSON(Analyzer.getInstance().getData().getUsageOverTime(), Analyzer.getInstance().getData().getSupplyOverTime()),
-                "JSON", "*.json",
+        Util.saveString(
+                Util.asJSON(Analyzer.getInstance().getData().getUsageOverTime(), Analyzer.getInstance().getData().getSupplyOverTime()),
+                "data.json","JSON", "*.json",
                 "Daten als JSON speichern"
         );
     }
 
     @FXML
-    private void onPublishToServerMenuItemClicked() {
+    private void onPublishToServerMenuItemClicked() throws IOException {
+        Stage serverStage = new Stage();
+        serverStage.initModality(Modality.WINDOW_MODAL);
+        serverStage.initOwner(App.getStage().getScene().getWindow());
+        serverStage.setTitle("Auf Server veröffentlichen");
+        serverStage.setScene(new Scene(App.loadFXML("serverconnection")));
+        serverStage.show();
     }
 
     @FXML
@@ -143,83 +150,4 @@ public class MainController {
         return series;
     }
 
-    /**
-     * Represent the data as CSV
-     * @param data the data to be represented
-     * @return the CSV data as a string
-     */
-    private String asCSV(List<Pair<LocalDateTime, Double>> data) {
-        StringBuilder sb = new StringBuilder("timestamp, value\n");
-        data.forEach(pair -> sb.append(String.format("%s, %.1f\n",
-                localDateTimeToTimestamp(pair.getKey()),
-                pair.getValue()
-        )));
-
-        return sb.toString();
-    }
-
-    /**
-     * Represent the data as JSON
-     * @param usage the usage data
-     * @param supply the supply data
-     * @return the JSON data as a string
-     */
-    private String asJSON(List<Pair<LocalDateTime, Double>> usage, List<Pair<LocalDateTime, Double>> supply) {
-        SensorData usageData = new SensorData();
-        usageData.setSensorID("742");
-        usageData.setData(toDataValues(usage));
-
-        SensorData supplyData = new SensorData();
-        supplyData.setSensorID("735");
-        supplyData.setData(toDataValues(supply));
-
-        return new Gson().toJson(Arrays.asList(usageData, supplyData));
-    }
-
-    /**
-     * Convert data to a marshallable bean class format
-     * @param data the data to be converted
-     * @return the converted data
-     */
-    private List<DataValue> toDataValues(List<Pair<LocalDateTime, Double>> data) {
-        return data.stream().map(pair -> {
-            DataValue val = new DataValue();
-            val.setTs(String.valueOf(localDateTimeToTimestamp(pair.getKey())));
-            val.setValue(pair.getValue());
-            return val;
-        }).collect(Collectors.toList());
-    }
-
-
-    /**
-     * Convert a {@link LocalDateTime} to a unix timestamp
-     * @param time the {@link LocalDateTime} to be converted
-     * @return the unix timestamp
-     */
-    private long localDateTimeToTimestamp(LocalDateTime time) {
-        return time.toInstant(ZoneOffset.UTC).toEpochMilli() / 1000L;
-    }
-
-    /**
-     * Save a string to a file
-     * @param data the data to be
-     * @param extensionName
-     * @param extensionPattern
-     * @param title
-     */
-    private void saveString(String data, String extensionName, String extensionPattern, String title) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(extensionName, extensionPattern));
-        File file = fileChooser.showSaveDialog(App.getStage());
-        if (file != null) {
-            try {
-                PrintWriter writer = new PrintWriter(file);
-                writer.print(data);
-                writer.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

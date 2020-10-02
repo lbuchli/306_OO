@@ -73,7 +73,7 @@ public class InputChooseController {
                     sdats.add(parseSDAT(path));
                 }
                 esl = parseESL(eslTextField.getText());
-            } catch (JAXBException e) {
+            } catch (JAXBException | RuntimeException e) {
                 return;
             }
 

@@ -5,6 +5,7 @@ module ch.maddl.analyzer {
     requires java.xml.bind;
     requires java.sql;
     requires com.google.gson;
+    requires java.net.http;
 
     opens ch.maddl.analyzer.control to javafx.fxml;
     opens ch.maddl.analyzer.control.util.xml.sdat to java.xml.bind;

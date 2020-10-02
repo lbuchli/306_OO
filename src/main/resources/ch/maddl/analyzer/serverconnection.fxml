@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="100.0" prefWidth="464.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.maddl.analyzer.control.ServerconnectionController">
+   <children>
+      <Label layoutX="14.0" layoutY="23.0" text="URL" />
+      <TextField fx:id="urlField" layoutX="48.0" layoutY="18.0" prefHeight="28.0" prefWidth="406.0" />
+      <Button layoutX="184.0" layoutY="61.0" mnemonicParsing="false" onAction="#onCancelClicked" text="Abbrechen" />
+      <Button layoutX="276.0" layoutY="61.0" mnemonicParsing="false" onAction="#onPublishClicked" text="Auf Server veröffentlichen" />
+   </children>
+</AnchorPane>
